@@ -2,6 +2,7 @@ package com.puce.invoices.controllers
 
 import com.puce.invoices.models.entities.Product
 import com.puce.invoices.services.ProductService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -23,7 +24,7 @@ class ProductController(
     }
 
     @PostMapping
-    fun save(@RequestBody product: Product): ResponseEntity<Product> {
+    fun save(@Valid @RequestBody product: Product): ResponseEntity<Product> {
         val savedProduct = productService.save(product)
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct)
     }

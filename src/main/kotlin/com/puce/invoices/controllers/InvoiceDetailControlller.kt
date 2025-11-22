@@ -2,6 +2,7 @@ package com.puce.invoices.controllers
 
 import com.puce.invoices.models.entities.InvoiceDetails
 import com.puce.invoices.services.InvoiceDetailService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -23,13 +24,13 @@ class InvoiceDetailController(
     }
 
     @PostMapping
-    fun save(@RequestBody invoiceDetail: InvoiceDetails): ResponseEntity<InvoiceDetails> {
+    fun save(@Valid @RequestBody invoiceDetail: InvoiceDetails): ResponseEntity<InvoiceDetails> {
         val savedInvoiceDetail = invoiceDetailService.save(invoiceDetail)
         return ResponseEntity.status(HttpStatus.CREATED).body(savedInvoiceDetail)
     }
 
     @PutMapping(value = ["/{id}"])
-    fun update(@PathVariable id: Long, @RequestBody invoiceDetail: InvoiceDetails): ResponseEntity<InvoiceDetails> {
+    fun update(@PathVariable id: Long, @Valid @RequestBody invoiceDetail: InvoiceDetails): ResponseEntity<InvoiceDetails> {
         invoiceDetailService.findById(id) // Verifica que existe
         val updatedInvoiceDetail = invoiceDetailService.save(invoiceDetail)
         return ResponseEntity.ok(updatedInvoiceDetail)
